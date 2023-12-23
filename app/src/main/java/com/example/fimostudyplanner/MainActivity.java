@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,36 +32,24 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.homeMenu) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.flFragment, homeFragment)
-                    .commit();
-            return true;
+            return startFragment(homeFragment);
         } else if (item.getItemId() == R.id.tasksMenu) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.flFragment, tasksFragment)
-                    .commit();
-            return true;
+            return startFragment(tasksFragment);
         } else if (item.getItemId() == R.id.flashcardsMenu) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.flFragment, flashcardsFragment)
-                    .commit();
-            return true;
+            return startFragment(flashcardsFragment);
         } else if (item.getItemId() == R.id.pomodoroMenu) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.flFragment, pomodoroFragment)
-                    .commit();
-            return true;
+            return startFragment(pomodoroFragment);
         } else if (item.getItemId() == R.id.profileMenu) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.flFragment, profileFragment)
-                    .commit();
-            return true;
+            return startFragment(profileFragment);
         }
         return false;
+    }
+
+    public boolean startFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flFragment, fragment)
+                .commit();
+        return true;
     }
 }
