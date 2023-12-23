@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeMenu"
+        android:title="Home"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/tasksMenu"
+        android:title="Tasks"
+        android:icon="@drawable/ic_tasks"/>
+    <item
+        android:id="@+id/flashcardsMenu"
+        android:title="Flashcards"
+        android:icon="@drawable/ic_flashcards"/>
+    <item
+        android:id="@+id/pomodoroMenu"
+        android:title="Pomodoro"
+        android:icon="@drawable/ic_timer"/>
+    <item
+        android:id="@+id/profileMenu"
+        android:title="Profile"
+        android:icon="@drawable/ic_account"/>
+
+
+</menu>
