@@ -69,12 +69,9 @@ public class AllTasksFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_all_tasks, container, false);
         fabAddTask = rootView.findViewById(R.id.fabAllTasks);
 
-        fabAddTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), NewTaskActivity.class);
-                startActivity(i);
-            }
+        fabAddTask.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), NewTaskActivity.class);
+            startActivity(i);
         });
         return rootView;
     }

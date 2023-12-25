@@ -2,6 +2,7 @@ package com.example.fimostudyplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,11 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         int taskPriority = findIndex(priorities, priority);
         Task task = new Task(taskTitle, taskDesc, taskDue, taskPriority, false);
         Log.d("info", "btnAddTaskOnClick: " + task.getTitle() + " Priority:" + task.getPriority());
+
+        // go back to main activity and put extra to go to tasks fragment
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("GoTo", "TasksFragment");
+        startActivity(intent);
     }
 
     private int findIndex(String[] array, String target) {
