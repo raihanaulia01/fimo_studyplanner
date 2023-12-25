@@ -29,6 +29,19 @@ public class TaskManager {
         editor.apply();
     }
 
+    public void addTask(Task task) {
+        List<Task> taskList = getTasks();
+        int id;
+        if (taskList.size() != 0) {
+            id = taskList.get(taskList.size()-1).getId() + 1;
+        } else {
+            id = 0;
+        }
+        task.setId(id);
+        taskList.add(task);
+        saveTasks(taskList);
+    }
+
     public List<Task> getTasks() {
         String tasksJson = sharedPreferences.getString(TASKS_KEY, null);
 

@@ -15,15 +15,13 @@ import android.widget.Spinner;
 import com.example.fimostudyplanner.TaskData.Task;
 import com.example.fimostudyplanner.TaskData.TaskManager;
 
-import java.util.List;
-
 public class NewTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button btnAddTask;
     EditText etTaskTitle, etTaskDesc, etTaskDueDate;
     Spinner spinnerPriority;
 
     // sorted from low priority to high
-    String[] priorities = {"Not Urgent & Unimportant", "Not Urgent & Important",
+    public static final String[] priorities = {"Not Urgent & Unimportant", "Not Urgent & Important",
                             "Urgent & Unimportant", "Urgent & Important"};
 
     @Override
@@ -31,9 +29,9 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
 
-        etTaskTitle = findViewById(R.id.etTaskTitle);
-        etTaskDesc = findViewById(R.id.etTaskDesc);
-        etTaskDueDate = findViewById(R.id.etTaskDueDate);
+        etTaskTitle = findViewById(R.id.etAddTitle);
+        etTaskDesc = findViewById(R.id.etAddDesc);
+        etTaskDueDate = findViewById(R.id.etAddDueDate);
         spinnerPriority = findViewById(R.id.spinnerPriority);
         btnAddTask = findViewById(R.id.btnAddTask);
 
@@ -52,15 +50,14 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         String taskDue = etTaskDueDate.getText().toString();
         String priority = spinnerPriority.getItemAtPosition(spinnerPriority.getSelectedItemPosition()).toString();
 
-        int taskPriority = findIndex(priorities, priority);
+        int taskPriority = findIndex(priority);
         Task task = new Task(taskTitle, taskDesc, taskDue, taskPriority, false);
-        Log.d("info", "btnAddTaskOnClick: " + task.getTitle() + " Priority:" + task.getPriority());
-
-        handleAddTask(task);
+        Log.d("info", "task title: " + task.getTitle() + " priority: " + task.getPriority());
 
         TaskManager taskManager = new TaskManager(this);
+        taskManager.addTask(task);
 
-        Log.d("infotask", "TASK: " + taskManager.getTasks().get(0).getTitle());
+//        Log.d("infoTask", "TASK: " + taskManager.getTasks().get(0).getTitle() + " | " + taskManager.getTasks().get(0).getId());
 
         // go back to main activity and put extra to go to tasks fragment
         Intent intent = new Intent(this, MainActivity.class);
@@ -68,20 +65,13 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         startActivity(intent);
     }
 
-    private int findIndex(String[] array, String target) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i].equals(target)) {
+    private int findIndex(String target) {
+        for (int i = 0; i < NewTaskActivity.priorities.length; i++) {
+            if (NewTaskActivity.priorities[i].equals(target)) {
                 return i;
             }
         }
         return -1;
-    }
-
-    private void handleAddTask(Task task) {
-        TaskManager taskManager = new TaskManager(this);
-        List<Task> tasksList = taskManager.getTasks();
-        tasksList.add(task);
-        taskManager.saveTasks(tasksList);
     }
 
     @Override

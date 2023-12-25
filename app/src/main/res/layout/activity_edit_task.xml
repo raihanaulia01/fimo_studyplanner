@@ -7,11 +7,11 @@
     tools:context=".NewTaskActivity">
 
     <TextView
-        android:id="@+id/createTaskTV"
+        android:id="@+id/editTaskTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:text="Create Task"
+        android:text="Edit Task"
         android:textColor="@color/black"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -20,18 +20,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvAddTitle"
+        android:id="@+id/tvEditTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="48dp"
-        android:text="Add Title"
+        android:text="Edit Title"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTaskTV" />
+        app:layout_constraintTop_toBottomOf="@+id/editTaskTV" />
 
     <EditText
-        android:id="@+id/etAddTitle"
+        android:id="@+id/etEditTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -40,27 +40,27 @@
         android:background="@drawable/bg_edit_text"
         android:backgroundTint="@color/background"
         android:ems="10"
-        android:hint="Title"
+        android:hint="New Title"
         android:textSize="16sp"
         android:inputType="text"
         android:padding="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEditTitle" />
 
     <TextView
-        android:id="@+id/tvAddDesc"
+        android:id="@+id/tvEditDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Add Description"
+        android:text="Edit Description"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAddTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/etEditTitle" />
 
     <EditText
-        android:id="@+id/etAddDesc"
+        android:id="@+id/etEditDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -69,28 +69,28 @@
         android:background="@drawable/bg_edit_text"
         android:backgroundTint="@color/background"
         android:ems="10"
-        android:hint="Description"
+        android:hint="New Description"
         android:textSize="16sp"
         android:inputType="text"
         android:padding="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEditDesc" />
 
     <TextView
-        android:id="@+id/tvAddDueDate"
+        android:id="@+id/tvEditDueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Due Date"
+        android:text="New Due Date"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAddDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/etEditDesc" />
 
     <EditText
-        android:id="@+id/etAddDueDate"
+        android:id="@+id/etEditDueDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -105,42 +105,57 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddDueDate" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEditDueDate" />
 
     <TextView
-        android:id="@+id/tvPriority"
+        android:id="@+id/tvEditPriority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Priority"
+        android:text="New Priority"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAddDueDate" />
+        app:layout_constraintTop_toBottomOf="@+id/etEditDueDate" />
 
     <Spinner
-        android:id="@+id/spinnerPriority"
+        android:id="@+id/editSpPriority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriority" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEditPriority" />
 
     <Button
-        android:id="@+id/btnAddTask"
+        android:id="@+id/btnEditTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/primary"
         android:elevation="6dp"
+        android:minWidth="130dp"
+        android:onClick="btnEditTaskOnClick"
+        android:stateListAnimator="@null"
+        android:text="Edit Task"
+        app:layout_constraintStart_toEndOf="@+id/btnDeleteTask"
+        app:layout_constraintTop_toBottomOf="@+id/editSpPriority" />
+
+    <Button
+        android:id="@+id/btnDeleteTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/textRed"
+        android:elevation="6dp"
         android:onClick="btnAddTaskOnClick"
         android:stateListAnimator="@null"
-        android:text="Add Task"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Delete Task"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerPriority" />
+        app:layout_constraintTop_toBottomOf="@+id/editSpPriority" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
