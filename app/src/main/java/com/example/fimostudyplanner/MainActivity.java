@@ -32,23 +32,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.homeMenu) {
-            return startFragment(homeFragment);
+            return startFragment(R.id.flFragment, homeFragment);
         } else if (item.getItemId() == R.id.tasksMenu) {
-            return startFragment(tasksFragment);
+            return startFragment(R.id.flFragment, tasksFragment);
         } else if (item.getItemId() == R.id.flashcardsMenu) {
-            return startFragment(flashcardsFragment);
+            return startFragment(R.id.flFragment, flashcardsFragment);
         } else if (item.getItemId() == R.id.pomodoroMenu) {
-            return startFragment(pomodoroFragment);
+            return startFragment(R.id.flFragment, pomodoroFragment);
         } else if (item.getItemId() == R.id.profileMenu) {
-            return startFragment(profileFragment);
+            return startFragment(R.id.flFragment, profileFragment);
         }
         return false;
     }
 
-    public boolean startFragment(Fragment fragment) {
+    public boolean startFragment(int id, Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.flFragment, fragment)
+                .replace(id, fragment)
                 .commit();
         return true;
     }
