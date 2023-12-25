@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,8 @@ public class AllTasksFragment extends Fragment {
     private String mParam2;
 
     FloatingActionButton fabAddTask;
+    private RecyclerView recyclerView;
+    private TaskAdapter taskAdapter;
 
     public AllTasksFragment() {
         // Required empty public constructor
@@ -68,6 +72,10 @@ public class AllTasksFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_all_tasks, container, false);
         fabAddTask = rootView.findViewById(R.id.fabAllTasks);
+        taskAdapter = new TaskAdapter(getContext());
+        recyclerView = rootView.findViewById(R.id.rvAllTasks);
+        recyclerView.setAdapter(taskAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         fabAddTask.setOnClickListener(v -> {
             Intent i = new Intent(getActivity(), NewTaskActivity.class);

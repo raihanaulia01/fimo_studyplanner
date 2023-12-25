@@ -1,4 +1,4 @@
-package com.example.fimostudyplanner;
+package com.example.fimostudyplanner.TaskData;
 
 public class Task {
     private int id;

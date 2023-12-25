@@ -12,6 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.fimostudyplanner.TaskData.Task;
+import com.example.fimostudyplanner.TaskData.TaskManager;
+
+import java.util.List;
+
 public class NewTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button btnAddTask;
     EditText etTaskTitle, etTaskDesc, etTaskDueDate;
@@ -51,6 +56,12 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         Task task = new Task(taskTitle, taskDesc, taskDue, taskPriority, false);
         Log.d("info", "btnAddTaskOnClick: " + task.getTitle() + " Priority:" + task.getPriority());
 
+        handleAddTask(task);
+
+        TaskManager taskManager = new TaskManager(this);
+
+        Log.d("infotask", "TASK: " + taskManager.getTasks().get(0).getTitle());
+
         // go back to main activity and put extra to go to tasks fragment
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("GoTo", "TasksFragment");
@@ -64,6 +75,13 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
             }
         }
         return -1;
+    }
+
+    private void handleAddTask(Task task) {
+        TaskManager taskManager = new TaskManager(this);
+        List<Task> tasksList = taskManager.getTasks();
+        tasksList.add(task);
+        taskManager.saveTasks(tasksList);
     }
 
     @Override
