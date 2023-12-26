@@ -72,4 +72,19 @@ public class TaskManager {
             }
         }
     }
+
+    public void deleteTask(int taskId) {
+        List<Task> tasks = getTasks();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getId() == taskId) {
+                tasks.remove(i);
+
+                // Save the updated list
+                saveTasks(tasks);
+                return;
+            }
+        }
+    }
 }

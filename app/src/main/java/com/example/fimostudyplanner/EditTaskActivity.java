@@ -65,9 +65,12 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
             toast.show();
         }
 //        go back to TasksFragment in MainActivity
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("GoTo", "TasksFragment");
-        startActivity(intent);
+        goBackToMain("TasksFragment");
+    }
+
+    public void btnDeleteTaskOnClick(View v) {
+        taskManager.deleteTask(editTaskId);
+        goBackToMain("TasksFragment");
     }
 
     private int findIndex(String target) {
@@ -77,6 +80,12 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
             }
         }
         return -1;
+    }
+
+    private void goBackToMain(String fragment) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("GoTo", fragment);
+        startActivity(intent);
     }
 
     @Override

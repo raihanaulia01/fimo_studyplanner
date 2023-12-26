@@ -151,7 +151,7 @@
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/textRed"
         android:elevation="6dp"
-        android:onClick="btnAddTaskOnClick"
+        android:onClick="btnDeleteTaskOnClick"
         android:stateListAnimator="@null"
         android:text="Delete Task"
         app:layout_constraintStart_toStartOf="parent"

@@ -25,32 +25,37 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavView.setSelectedItemId(R.id.homeMenu);
 
         Intent i = getIntent();
-        String selectedFragment = i.getStringExtra("GoTo");
+        String selectedFragment;
+        try {
+            selectedFragment = i.getStringExtra("GoTo").toLowerCase();
+        } catch (NullPointerException e) {
+            Log.e("NullPointerException",
+                    "selectedFragment is null. proceeding to homeFragment.");
+            selectedFragment = "homefragment";
+        }
 
-        if (selectedFragment != null) {
-            Log.d("info", "onCreate: selectedFragment: " + selectedFragment);
-            switch (selectedFragment) {
-                case "TasksFragment":
-                    bottomNavView.setSelectedItemId(R.id.tasksMenu);
-                    startFragment(tasksFragment);
-                    break;
-                case "FlashcardsFragment":
-                    bottomNavView.setSelectedItemId(R.id.flashcardsMenu);
-                    startFragment(flashcardsFragment);
-                    break;
-                case "PomodoroFragment":
-                    bottomNavView.setSelectedItemId(R.id.pomodoroMenu);
-                    startFragment(pomodoroFragment);
-                    break;
-                case "ProfileFragment":
-                    bottomNavView.setSelectedItemId(R.id.profileMenu);
-                    startFragment(profileFragment);
-                    break;
-                default:
-                    bottomNavView.setSelectedItemId(R.id.homeMenu);
-                    startFragment(homeFragment);
-                    break;
-            }
+        Log.d("info", "onCreate: selectedFragment: " + selectedFragment);
+        switch (selectedFragment) {
+            case "tasksfragment":
+                bottomNavView.setSelectedItemId(R.id.tasksMenu);
+                startFragment(tasksFragment);
+                break;
+            case "flashcardsfragment":
+                bottomNavView.setSelectedItemId(R.id.flashcardsMenu);
+                startFragment(flashcardsFragment);
+                break;
+            case "pomodorofragment":
+                bottomNavView.setSelectedItemId(R.id.pomodoroMenu);
+                startFragment(pomodoroFragment);
+                break;
+            case "profilefragment":
+                bottomNavView.setSelectedItemId(R.id.profileMenu);
+                startFragment(profileFragment);
+                break;
+            default:
+                bottomNavView.setSelectedItemId(R.id.homeMenu);
+                startFragment(homeFragment);
+                break;
         }
     }
     HomeFragment homeFragment = new HomeFragment();
