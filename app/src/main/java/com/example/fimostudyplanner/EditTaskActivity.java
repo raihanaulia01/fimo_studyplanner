@@ -1,7 +1,9 @@
 package com.example.fimostudyplanner;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.fimostudyplanner.TaskData.Task;
 import com.example.fimostudyplanner.TaskData.TaskManager;
+
+import java.util.List;
 
 public class EditTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TaskManager taskManager;
@@ -40,9 +44,9 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
         editBtn = findViewById(R.id.btnEditTask);
 
         editSpPriority.setOnItemSelectedListener(this);
-        ArrayAdapter ad = new ArrayAdapter(this,
+        ArrayAdapter<String> ad = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, NewTaskActivity.priorities);
-
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editSpPriority.setAdapter(ad);
     }
 
@@ -69,8 +73,32 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void btnDeleteTaskOnClick(View v) {
-        taskManager.deleteTask(editTaskId);
-        goBackToMain("TasksFragment");
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete this task?");
+
+        Toast toast = new Toast(this);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                taskManager.deleteTask(editTaskId);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setText("Successfully deleted task.");
+                toast.show();
+                goBackToMain("tasksfragment");
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setText("Cancelled delete task");
+                toast.show();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private int findIndex(String target) {
