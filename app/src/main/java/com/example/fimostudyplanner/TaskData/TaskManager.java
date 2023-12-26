@@ -68,7 +68,7 @@ public class TaskManager {
 
                 // Save the updated list
                 saveTasks(tasks);
-                return; // Exit the loop once the task is updated
+                return ; // Exit the loop once the task is updated
             }
         }
     }
