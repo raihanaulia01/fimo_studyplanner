@@ -1,6 +1,10 @@
 package com.example.fimostudyplanner.TasksFragments;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +13,10 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fimostudyplanner.EditTaskActivity;
 import com.example.fimostudyplanner.TaskData.Task;
 import com.example.fimostudyplanner.R;
 
@@ -41,6 +47,14 @@ public class EisenhowerAdapter extends RecyclerView.Adapter<EisenhowerAdapter.Ei
             }
         });
 
+        viewHolder.constraintLayoutEH.setOnClickListener(v1 -> {
+            int pos = viewHolder.getAdapterPosition();
+            Intent i = new Intent(context, EditTaskActivity.class);
+            i.putExtra("TaskId", taskList.get(pos).getId());
+            Log.d("intent id", "onCreateViewHolder: " + taskList.get(pos).getId());
+            context.startActivity(i);
+        });
+
         return viewHolder;
     }
 
@@ -60,12 +74,14 @@ public class EisenhowerAdapter extends RecyclerView.Adapter<EisenhowerAdapter.Ei
     public static class EisenhowerViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitleEH, tvDueEH;
         CheckBox cbTaskEH;
+        ConstraintLayout constraintLayoutEH;
 
         public EisenhowerViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitleEH = itemView.findViewById(R.id.tvTitleEH);
             tvDueEH = itemView.findViewById(R.id.tvDueEH);
             cbTaskEH = itemView.findViewById(R.id.cbTaskEH);
+            constraintLayoutEH = itemView.findViewById(R.id.constraintLayoutEH);
         }
     }
 

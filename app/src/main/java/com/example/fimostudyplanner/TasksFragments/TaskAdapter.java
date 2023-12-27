@@ -1,5 +1,7 @@
 package com.example.fimostudyplanner.TasksFragments;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fimostudyplanner.EditTaskActivity;
+import com.example.fimostudyplanner.NewTaskActivity;
 import com.example.fimostudyplanner.R;
 import com.example.fimostudyplanner.TaskData.Task;
 import com.example.fimostudyplanner.TaskData.TaskManager;
@@ -63,8 +66,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.taskDueTV.setText(task.getDueDate());
         holder.cbTask.setChecked(task.isCompleted());
 
-        holder.cbTask.setOnClickListener(v -> {
-            Log.d("RecyclerView", "Task Title: " + task.getTitle() + " | " + task.getId());
+        holder.editBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EditTaskActivity.class);
+            intent.putExtra("TaskId", task.getId());
+            context.startActivity(intent);
         });
     }
 
@@ -86,13 +91,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             taskDueTV = itemView.findViewById(R.id.taskDueTV);
             editBtn = itemView.findViewById(R.id.editBtn);
             cbTask = itemView.findViewById(R.id.cbTask);
-
-            editBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
         }
     }
 
