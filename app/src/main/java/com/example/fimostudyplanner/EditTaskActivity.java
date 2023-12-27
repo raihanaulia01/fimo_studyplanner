@@ -48,6 +48,12 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
                 android.R.layout.simple_spinner_item, NewTaskActivity.priorities);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editSpPriority.setAdapter(ad);
+
+        Task task = taskManager.getTasks().get(editTaskId);
+        editTitleET.setText(task.getTitle());
+        editDescET.setText(task.getDescription());
+        editDueET.setText(task.getDueDate());
+        editSpPriority.setSelection(task.getPriority());
     }
 
     public void btnEditTaskOnClick(View v) {
