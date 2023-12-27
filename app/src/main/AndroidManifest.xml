@@ -13,6 +13,12 @@
         android:theme="@style/Theme.FIMOStudyPlanner"
         tools:targetApi="31">
         <activity
+            android:name=".EditTaskActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

@@ -5,16 +5,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TasksFragment"
-    android:background="@color/background">
+    android:background="@color/white">
+
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is the tasks fragment"
+        android:layout_marginStart="10dp"
+        android:text="Tasks"
+        android:textColor="@color/black"
+        android:textSize="32sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/ic_tasks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        app:tabSelectedTextColor="@color/primary"
+        app:tabIndicatorColor="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tlAllTasks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All Tasks" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tlEisenhower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eisenhower Matrix" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayoutTasks"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        android:background="@color/background"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,9 +4,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
+import com.example.fimostudyplanner.TasksFragments.AllTasksFragment;
+import com.example.fimostudyplanner.TasksFragments.EisenhowerFragment;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +29,9 @@ public class TasksFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TabLayout tabLayout;
+    FrameLayout frameLayout;
 
     public TasksFragment() {
         // Required empty public constructor
@@ -59,6 +68,45 @@ public class TasksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tasks, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
+        tabLayout = rootView.findViewById(R.id.tabLayout);
+
+//      default fragment
+        startChildFragment(R.id.frameLayoutTasks, new AllTasksFragment());
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Fragment fragment = null;
+//              TODO add allTasksFragment and Eisenhower fragment
+                switch (tab.getPosition()) {
+                    case 0:
+                        fragment = new AllTasksFragment();
+                        break;
+                    case 1:
+                        fragment = new EisenhowerFragment();
+                        break;
+                }
+                if (fragment != null) {
+                    startChildFragment(R.id.frameLayoutTasks, fragment);
+                } else {
+                    Log.d("Error", "onTabSelected: Fragment is null");
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
+        return rootView;
+    }
+
+    public void startChildFragment(int id, Fragment fragment) {
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(id, fragment)
+                .commit();
     }
 }
