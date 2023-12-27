@@ -29,6 +29,7 @@
             android:clickable="true"
             android:src="@drawable/ic_add"
             android:elevation="10dp"
+            android:backgroundTint="@color/accent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

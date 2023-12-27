@@ -1,14 +1,24 @@
 package com.example.fimostudyplanner.TasksFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.fimostudyplanner.NewTaskActivity;
 import com.example.fimostudyplanner.R;
+import com.example.fimostudyplanner.TaskData.Task;
+import com.example.fimostudyplanner.TaskData.TaskManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +35,19 @@ public class EisenhowerFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FloatingActionButton fabAddTaskEH;
+    private RecyclerView rvPriority3;
+    private RecyclerView rvPriority2;
+    private RecyclerView rvPriority1;
+    private RecyclerView rvPriority0;
+
+    private EisenhowerAdapter ehAdapterPriority3;
+    private EisenhowerAdapter ehAdapterPriority2;
+    private EisenhowerAdapter ehAdapterPriority1;
+    private EisenhowerAdapter ehAdapterPriority0;
+
+    private TaskManager taskManager;
 
     public EisenhowerFragment() {
         // Required empty public constructor
@@ -60,7 +83,47 @@ public class EisenhowerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        taskManager = new TaskManager(getContext());
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_eisenhower, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_eisenhower, container, false);
+        fabAddTaskEH = rootView.findViewById(R.id.fabAddTaskEH);
+        rvPriority3 = rootView.findViewById(R.id.rvPriority3);
+        rvPriority2 = rootView.findViewById(R.id.rvPriority2);
+        rvPriority1 = rootView.findViewById(R.id.rvPriority1);
+        rvPriority0 = rootView.findViewById(R.id.rvPriority0);
+
+        List<Task> taskList = taskManager.getTasks();
+
+        List<Task> tlPriority3 = taskList.stream()
+                .filter(task -> task.getPriority() == 3).collect(Collectors.toList());
+        List<Task> tlPriority2 = taskList.stream()
+                .filter(task -> task.getPriority() == 2).collect(Collectors.toList());
+        List<Task> tlPriority1 = taskList.stream()
+                .filter(task -> task.getPriority() == 1).collect(Collectors.toList());
+        List<Task> tlPriority0 = taskList.stream()
+                .filter(task -> task.getPriority() == 0).collect(Collectors.toList());
+
+        ehAdapterPriority3 = new EisenhowerAdapter(getContext(), tlPriority3);
+        ehAdapterPriority2 = new EisenhowerAdapter(getContext(), tlPriority2);
+        ehAdapterPriority1 = new EisenhowerAdapter(getContext(), tlPriority1);
+        ehAdapterPriority0 = new EisenhowerAdapter(getContext(), tlPriority0);
+
+        rvPriority3.setAdapter(ehAdapterPriority3);
+        rvPriority2.setAdapter(ehAdapterPriority2);
+        rvPriority1.setAdapter(ehAdapterPriority1);
+        rvPriority0.setAdapter(ehAdapterPriority0);
+
+        rvPriority3.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvPriority2.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvPriority1.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvPriority0.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        fabAddTaskEH.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), NewTaskActivity.class);
+            startActivity(i);
+        });
+
+        return rootView;
     }
 }

@@ -21,8 +21,8 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
     Spinner spinnerPriority;
 
     // sorted from low priority to high
-    public static final String[] priorities = {"Not Urgent & Unimportant", "Not Urgent & Important",
-                            "Urgent & Unimportant", "Urgent & Important"};
+    public static final String[] priorities = {"Not Urgent & Unimportant", "Urgent & Unimportant",
+            "Not Urgent & Important", "Urgent & Important"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,6 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
 
         TaskManager taskManager = new TaskManager(this);
         taskManager.addTask(task);
-
-//        Log.d("infoTask", "TASK: " + taskManager.getTasks().get(0).getTitle() + " | " + taskManager.getTasks().get(0).getId());
 
         // go back to main activity and put extra to go to tasks fragment
         Intent intent = new Intent(this, MainActivity.class);

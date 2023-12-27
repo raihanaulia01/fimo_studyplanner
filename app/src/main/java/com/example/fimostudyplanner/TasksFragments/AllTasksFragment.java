@@ -31,7 +31,7 @@ public class AllTasksFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    FloatingActionButton fabAddTask;
+    private FloatingActionButton fabAddTask;
     private RecyclerView recyclerView;
     private TaskAdapter taskAdapter;
 
