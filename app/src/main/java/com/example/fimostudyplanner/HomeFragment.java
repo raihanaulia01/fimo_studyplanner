@@ -3,17 +3,27 @@ package com.example.fimostudyplanner;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.fimostudyplanner.TaskData.Task;
+import com.example.fimostudyplanner.TaskData.TaskManager;
+import com.example.fimostudyplanner.TasksFragments.TaskAdapter;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements TaskAdapter.OnCheckedChangeListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +33,11 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView recyclerView;
+    private TaskAdapter taskAdapter;
+    private TextView tvTaskCount;
+    private TextView tvGreeting;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -59,6 +74,26 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        recyclerView = rootView.findViewById(R.id.rvTaskHome);
+        tvTaskCount = rootView.findViewById(R.id.tvTaskCount);
+
+        taskAdapter = new TaskAdapter(getContext(), this);
+        recyclerView.setAdapter(taskAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(
+                getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        TaskManager taskManager = new TaskManager(getContext());
+        List<Task> taskList = taskManager.getTasks();
+        tvTaskCount.setText(taskList.size() + " tasks today.");
+
+        return rootView;
+    }
+
+    @Override
+    public void onItemCheckedChanged(int taskId, boolean isChecked) {
+        TaskManager taskManager = new TaskManager(getContext());
+        taskManager.setTaskIsCompleted(taskId, isChecked);
+        Log.d("task checked", "HomeFragment onItemCheckedChanged: " + taskId + " | " + isChecked);
     }
 }
