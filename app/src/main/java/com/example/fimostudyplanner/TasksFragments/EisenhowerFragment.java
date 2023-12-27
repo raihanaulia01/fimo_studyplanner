@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
  * Use the {@link EisenhowerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EisenhowerFragment extends Fragment {
+public class EisenhowerFragment extends Fragment implements EisenhowerAdapter.OnCheckedChangeListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -104,10 +105,10 @@ public class EisenhowerFragment extends Fragment {
         List<Task> tlPriority0 = taskList.stream()
                 .filter(task -> task.getPriority() == 0).collect(Collectors.toList());
 
-        ehAdapterPriority3 = new EisenhowerAdapter(getContext(), tlPriority3);
-        ehAdapterPriority2 = new EisenhowerAdapter(getContext(), tlPriority2);
-        ehAdapterPriority1 = new EisenhowerAdapter(getContext(), tlPriority1);
-        ehAdapterPriority0 = new EisenhowerAdapter(getContext(), tlPriority0);
+        ehAdapterPriority3 = new EisenhowerAdapter(getContext(), tlPriority3, this);
+        ehAdapterPriority2 = new EisenhowerAdapter(getContext(), tlPriority2, this);
+        ehAdapterPriority1 = new EisenhowerAdapter(getContext(), tlPriority1, this);
+        ehAdapterPriority0 = new EisenhowerAdapter(getContext(), tlPriority0, this);
 
         rvPriority3.setAdapter(ehAdapterPriority3);
         rvPriority2.setAdapter(ehAdapterPriority2);
@@ -125,5 +126,11 @@ public class EisenhowerFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onItemCheckedChanged(int taskId, boolean isChecked) {
+        taskManager.setTaskIsCompleted(taskId, isChecked);
+        Log.d("task checked", "onItemCheckedChanged: " + taskId + " | " + isChecked);
     }
 }

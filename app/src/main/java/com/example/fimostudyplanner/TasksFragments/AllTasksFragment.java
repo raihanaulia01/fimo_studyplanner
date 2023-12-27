@@ -7,12 +7,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fimostudyplanner.NewTaskActivity;
 import com.example.fimostudyplanner.R;
+import com.example.fimostudyplanner.TaskData.Task;
+import com.example.fimostudyplanner.TaskData.TaskManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
@@ -20,7 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * Use the {@link AllTasksFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AllTasksFragment extends Fragment {
+public class AllTasksFragment extends Fragment implements TaskAdapter.OnCheckedChangeListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,7 +75,7 @@ public class AllTasksFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_all_tasks, container, false);
         fabAddTask = rootView.findViewById(R.id.fabAllTasks);
-        taskAdapter = new TaskAdapter(getContext());
+        taskAdapter = new TaskAdapter(getContext(), this);
         recyclerView = rootView.findViewById(R.id.rvAllTasks);
         recyclerView.setAdapter(taskAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -82,5 +85,12 @@ public class AllTasksFragment extends Fragment {
             startActivity(i);
         });
         return rootView;
+    }
+
+    @Override
+    public void onItemCheckedChanged(int taskId, boolean isChecked) {
+        TaskManager taskManager = new TaskManager(getContext());
+        taskManager.setTaskIsCompleted(taskId, isChecked);
+        Log.d("task checked", "AllTasksFragment onItemCheckedChanged: " + taskId + " | " + isChecked);
     }
 }

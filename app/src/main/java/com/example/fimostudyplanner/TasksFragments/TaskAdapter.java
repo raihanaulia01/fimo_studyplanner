@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -26,11 +27,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     private Context context;
     private List<Task> taskList;
     private TaskManager taskManager;
+    private OnCheckedChangeListener onCheckedChangeListener;
 
-    public TaskAdapter(Context context) {
+    public TaskAdapter(Context context, OnCheckedChangeListener listener) {
         this.context = context;
         this.taskManager = new TaskManager(context);
         this.taskList = taskManager.getTasks();
+        this.onCheckedChangeListener = listener;
     }
 
     @NonNull
@@ -38,7 +41,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public TaskAdapter.TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.task_rv_item, parent, false);
-        return new TaskAdapter.TaskViewHolder(v);
+
+        TaskViewHolder viewHolder = new TaskViewHolder(v);
+
+        viewHolder.cbTask.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int position = viewHolder.getAdapterPosition();
+            if (onCheckedChangeListener != null) {
+                onCheckedChangeListener.onItemCheckedChanged(
+                        taskList.get(position).getId(),
+                        isChecked);
+            }
+        });
+        return viewHolder;
     }
 
     @Override
@@ -49,14 +63,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.taskDueTV.setText(task.getDueDate());
         holder.cbTask.setChecked(task.isCompleted());
 
-//        holder.cbTask.setOnClickListener(v -> {
-//            Log.d("RecyclerView", "Task Title: " + task.getTitle() + " | " + task.getId());
-//        });
-
-        holder.editBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(context, EditTaskActivity.class);
-            intent.putExtra("TaskId", task.getId());
-            context.startActivity(intent);
+        holder.cbTask.setOnClickListener(v -> {
+            Log.d("RecyclerView", "Task Title: " + task.getTitle() + " | " + task.getId());
         });
     }
 
@@ -78,6 +86,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             taskDueTV = itemView.findViewById(R.id.taskDueTV);
             editBtn = itemView.findViewById(R.id.editBtn);
             cbTask = itemView.findViewById(R.id.cbTask);
+
+            editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
+    }
+
+    public interface OnCheckedChangeListener {
+        void onItemCheckedChanged(int taskId, boolean isChecked);
     }
 }

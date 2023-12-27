@@ -29,6 +29,21 @@ public class TaskManager {
         editor.apply();
     }
 
+    public void setTaskIsCompleted(int taskId, boolean isCompleted) {
+        List<Task> tasks = getTasks();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getId() == taskId) {
+                task.setCompleted(isCompleted);
+
+                // Save the updated list
+                saveTasks(tasks);
+                return;
+            }
+        }
+    }
+
     public void addTask(Task task) {
         List<Task> taskList = getTasks();
         int id;
