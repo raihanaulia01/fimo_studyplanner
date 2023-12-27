@@ -1,30 +1,36 @@
 package com.example.fimostudyplanner;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-public class PomodoroFragment extends AppCompatActivity {
+public class PomodoroFragment extends Fragment {
+
     private ProgressBar circleProgressBar;
     private CountDownTimer countDownTimer;
     private long timeInMillis;
 
-    public void onCreateView(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_pomodoro);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_pomodoro, container, false);
 
-        circleProgressBar = findViewById(R.id.circleProgressBar);
+        circleProgressBar = view.findViewById(R.id.circleProgressBar);
 
-        Button startButton = findViewById(R.id.startButton);
-        Button resetButton = findViewById(R.id.resetButton);
-        Button settingsButton = findViewById(R.id.settingsButton);
+        Button startButton = view.findViewById(R.id.startButton);
+        Button resetButton = view.findViewById(R.id.resetButton);
+        Button settingsButton = view.findViewById(R.id.settingsButton);
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +52,8 @@ public class PomodoroFragment extends AppCompatActivity {
                 showSettingsDialog();
             }
         });
+
+        return view;
     }
 
     private void startTimer() {
@@ -63,9 +71,7 @@ public class PomodoroFragment extends AppCompatActivity {
     }
 
     private void resetTimer() {
-        // Hentikan timer dan atur ulang waktu
         countDownTimer.cancel();
-        // Reset tampilan dan waktu
         circleProgressBar.setProgress(100);
         timeInMillis = 0;
     }
@@ -76,26 +82,28 @@ public class PomodoroFragment extends AppCompatActivity {
     }
 
     private void showSettingsDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.add_time_pomodoro, null);
-        final EditText editTextTime = view.findViewById(R.id.editTextTime);
-        Button setButton = view.findViewById(R.id.setButton);
+        View dialogView = getLayoutInflater().inflate(R.layout.add_time_pomodoro, null);
+        final EditText editTextTime = dialogView.findViewById(R.id.editTextTime);
+        Button setButton = dialogView.findViewById(R.id.setButton);
+
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(getContext());
+        builder.setView(dialogView);
+
+        final AlertDialog alertDialog = builder.create();
 
         setButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Ambil waktu dari EditText dan simpan
                 String inputTime = editTextTime.getText().toString();
                 if (!inputTime.isEmpty()) {
                     timeInMillis = Long.parseLong(inputTime) * 1000 * 60; // Menit ke milidetik
                     resetTimer();
+                    alertDialog.dismiss();
                 }
             }
         });
 
-        builder.setView(view)
-                .setTitle("Set Time")
-                .setNegativeButton("Cancel", null)
-                .create().show();
+        alertDialog.show();
     }
 }
