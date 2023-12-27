@@ -31,19 +31,21 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     private List<Task> taskList;
     private TaskManager taskManager;
     private OnCheckedChangeListener onCheckedChangeListener;
+    private int layoutResource;
 
-    public TaskAdapter(Context context, OnCheckedChangeListener listener) {
+    public TaskAdapter(Context context, OnCheckedChangeListener listener, int layoutResource) {
         this.context = context;
         this.taskManager = new TaskManager(context);
         this.taskList = taskManager.getTasks();
         this.onCheckedChangeListener = listener;
+        this.layoutResource = layoutResource;
     }
 
     @NonNull
     @Override
     public TaskAdapter.TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.task_rv_item, parent, false);
+        View v = inflater.inflate(layoutResource, parent, false);
 
         TaskViewHolder viewHolder = new TaskViewHolder(v);
 

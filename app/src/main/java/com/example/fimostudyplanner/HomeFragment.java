@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment implements TaskAdapter.OnCheckedChang
         recyclerView = rootView.findViewById(R.id.rvTaskHome);
         tvTaskCount = rootView.findViewById(R.id.tvTaskCount);
 
-        taskAdapter = new TaskAdapter(getContext(), this);
+        taskAdapter = new TaskAdapter(getContext(), this, R.layout.task_rv_home_item);
         recyclerView.setAdapter(taskAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(
                 getContext(), LinearLayoutManager.HORIZONTAL, false));
