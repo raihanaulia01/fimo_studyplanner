@@ -71,9 +71,12 @@ public class PomodoroFragment extends Fragment {
     }
 
     private void resetTimer() {
-        countDownTimer.cancel();
-        circleProgressBar.setProgress(100);
-        timeInMillis = 0;
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+            circleProgressBar.setProgress(100);
+            timeInMillis = 0;
+        }
     }
 
     private void updateProgressBar(long millisUntilFinished) {
