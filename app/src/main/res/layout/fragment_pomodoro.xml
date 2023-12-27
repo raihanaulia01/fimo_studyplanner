@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,14 +7,101 @@
     tools:context=".PomodoroFragment"
     android:background="@color/background">
 
+
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is the pomodoro fragment"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="70dp"
+        android:text="Pomodoro"
+        android:textSize="32dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.214"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.101" />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="78dp"
+        android:src="@drawable/ic_timer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="330dp"
+        android:layout_height="450dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/background_timer_pomodoro"
+        android:backgroundTint="@color/white"/>
+
+    <RelativeLayout
+        android:id="@+id/progress_layout"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginStart="80dp">
+
+        <ProgressBar
+            android:id="@+id/circleProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/circle_shape"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/circle_progress_bar"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="00:00"
+            android:textSize="60dp" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="70dp"
+        android:text="a"
+        android:background="@drawable/baseline_settings_24"/>
+
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="480dp"
+        android:text="Start"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="480dp"
+        android:textSize="20dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:text="Reset" />
+
+
+</RelativeLayout>

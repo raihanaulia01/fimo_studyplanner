@@ -2,63 +2,100 @@ package com.example.fimostudyplanner;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
+import android.os.CountDownTimer;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PomodoroFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PomodoroFragment extends Fragment {
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class PomodoroFragment extends AppCompatActivity {
+    private ProgressBar circleProgressBar;
+    private CountDownTimer countDownTimer;
+    private long timeInMillis;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public PomodoroFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PomodoroFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PomodoroFragment newInstance(String param1, String param2) {
-        PomodoroFragment fragment = new PomodoroFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreateView(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setContentView(R.layout.fragment_pomodoro);
+
+        circleProgressBar = findViewById(R.id.circleProgressBar);
+
+        Button startButton = findViewById(R.id.startButton);
+        Button resetButton = findViewById(R.id.resetButton);
+        Button settingsButton = findViewById(R.id.settingsButton);
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTimer();
+            }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetTimer();
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSettingsDialog();
+            }
+        });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pomodoro, container, false);
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(timeInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                updateProgressBar(millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                resetTimer();
+            }
+        }.start();
+    }
+
+    private void resetTimer() {
+        // Hentikan timer dan atur ulang waktu
+        countDownTimer.cancel();
+        // Reset tampilan dan waktu
+        circleProgressBar.setProgress(100);
+        timeInMillis = 0;
+    }
+
+    private void updateProgressBar(long millisUntilFinished) {
+        int progress = (int) ((millisUntilFinished / (float) timeInMillis) * 100);
+        circleProgressBar.setProgress(progress);
+    }
+
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.add_time_pomodoro, null);
+        final EditText editTextTime = view.findViewById(R.id.editTextTime);
+        Button setButton = view.findViewById(R.id.setButton);
+
+        setButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Ambil waktu dari EditText dan simpan
+                String inputTime = editTextTime.getText().toString();
+                if (!inputTime.isEmpty()) {
+                    timeInMillis = Long.parseLong(inputTime) * 1000 * 60; // Menit ke milidetik
+                    resetTimer();
+                }
+            }
+        });
+
+        builder.setView(view)
+                .setTitle("Set Time")
+                .setNegativeButton("Cancel", null)
+                .create().show();
     }
 }
