@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,10 +15,31 @@
         android:theme="@style/Theme.FIMOStudyPlanner"
         tools:targetApi="31">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditTaskActivity"
             android:exported="false" />
         <activity
             android:name=".NewTaskActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Flashcards.Flashcard_Card"
+            android:exported="false" />
+        <activity
+            android:name=".Flashcards.Flashcard_addcards"
+            android:exported="false" />
+        <activity
+            android:name=".Flashcards.Flashcard_cardset"
+            android:exported="false" />
+        <activity
+            android:name=".Flashcards.Flashcard_folderchapter"
+            android:exported="false" />
+        <activity
+            android:name=".Flashcards.Flashcard_Chapter"
+            android:exported="false" />
+        <activity
+            android:name=".Flashcards.FlashcardsSubject"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

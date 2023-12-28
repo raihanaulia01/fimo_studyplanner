@@ -1,27 +1,37 @@
 package com.example.fimostudyplanner.Flashcards;
 
-public class flashcardmodel
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+
+import java.util.List;
+
+public class flashcardmodel extends ViewModel
 {
-    String header,desc;
+
+    private String title;
+    private int cardSetCount;
 
     public flashcardmodel(String header, String desc) {
-        this.header = header;
-        this.desc = desc;
+        this.title = title;
+        this.cardSetCount = cardSetCount;
     }
 
-    public String getHeader() {
-        return header;
+    public String getTitle() {
+        return title;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDesc() {
-        return desc;
+    public int getCardSetCount() {
+        return cardSetCount;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setCardSetCount(int cardSetCount) {
+        this.cardSetCount = cardSetCount;
+    }
+
+    public flashcardmodel get(Class<flashcardmodel> flashcardmodelClass) {
     }
 }

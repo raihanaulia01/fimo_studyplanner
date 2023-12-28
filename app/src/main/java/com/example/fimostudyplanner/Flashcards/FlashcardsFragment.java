@@ -1,19 +1,29 @@
-package com.example.fimostudyplanner;
+package com.example.fimostudyplanner.Flashcards;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.fimostudyplanner.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FlashcardsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FlashcardsFragment extends Fragment {
+public class FlashcardsFragment extends Fragment
+{
+    private flashcardmodel flashcardmodel;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +33,9 @@ public class FlashcardsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    RecyclerView recyclerView;
+    ArrayList<flashcardmodel> dataholder;
+    FloatingActionButton addflashcardsBtn;
 
     public FlashcardsFragment() {
         // Required empty public constructor
@@ -59,6 +72,16 @@ public class FlashcardsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_flashcards, container, false);
+        View view = inflater.inflate(R.layout.fragment_flashcards, container, false);
+        recyclerView = view.findViewById(R.id.recview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        dataholder = new ArrayList<>();
+        addflashcardsBtn = addflashcardsBtn.findViewById(R.id.add_subject_btn);
+
+        addflashcardsBtn.setOnClickListener((v) -> startActivity(new Intent(requireContext(), FlashcardsSubject.class)));
+        flashcardmodel = new flashcardmodel(this).get(flashcardmodel.class);
+        flashcardmodel.setTitle("Flashcard");
+
+        return view;
     }
 }

@@ -9,9 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.fimostudyplanner.Flashcards.FlashcardsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Intent i = getIntent();
         String selectedFragment;
         try {
-            selectedFragment = Objects.requireNonNull(i.getStringExtra("GoTo")).toLowerCase();
+            selectedFragment = i.getStringExtra("GoTo").toLowerCase();
         } catch (NullPointerException e) {
             Log.e("NullPointerException",
                     "selectedFragment is null. proceeding to homeFragment.");

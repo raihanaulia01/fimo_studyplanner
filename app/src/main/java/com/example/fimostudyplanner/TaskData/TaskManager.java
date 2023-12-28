@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.example.fimostudyplanner.TasksFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -20,6 +21,10 @@ public class TaskManager {
     public TaskManager(Context context) {
         gson = new Gson();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    public TaskManager() {
+        
     }
 
     public void saveTasks(List<Task> tasks) {
@@ -129,4 +134,6 @@ public class TaskManager {
         }
         Log.e("TaskManager", "deleteTask: failed delete task " + taskId);
     }
+
+
 }

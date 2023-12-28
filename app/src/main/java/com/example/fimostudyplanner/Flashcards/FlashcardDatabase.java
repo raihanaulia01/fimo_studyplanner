@@ -2,7 +2,6 @@ package com.example.fimostudyplanner.Flashcards;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -49,7 +48,6 @@ public abstract class FlashcardDatabase extends RoomDatabase {
         return instance;
     }
 
-    // below line is to create a callback for our room database.
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -58,20 +56,21 @@ public abstract class FlashcardDatabase extends RoomDatabase {
             // and below line is to populate our data.
             new PopulateDbAsyncTask(instance).execute();
         }
-    };
+    }
 
+
+            // below line is to create a callback for our room database.
     // we are creating an async task class to perform task in background.
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-        private Flashcard_Dao flashcardDao;
-        private PopulateDbAsyncTask(FlashcardDatabase instance) {
-            Flashcard_Dao flashcardDao = instance.flashcardDao();
+        PopulateDbAsyncTask(FlashcardDatabase instance) {
+        Flashcard_Dao dao= instance.flashcardDao();
         }
-        @Override
+
+            @Override
         protected Void doInBackground(Void... voids) {
-            flashcardDao.insert(new FlashcardModal(titleSubjectText:"Subject Name", titleChapterText:"Chapter Name", front:
-            ));
             return null;
         }
     }
+
 }
 

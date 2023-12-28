@@ -9,6 +9,7 @@
     <color name="secondary">#EFDA90</color>
     <color name="accent">#F7FF9D</color>
     <color name="background">#EDEFF3</color>
+    <color name="tablayout">#CCC1FF</color>
 
     <color name="navbarIcon">#BE000000</color>
     <color name="btnGray">#E0E0E0</color>

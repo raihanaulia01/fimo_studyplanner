@@ -1,5 +1,7 @@
 package com.example.fimostudyplanner.TaskData;
 
+import java.util.Date;
+
 public class Task {
     private int id;
     private String title;

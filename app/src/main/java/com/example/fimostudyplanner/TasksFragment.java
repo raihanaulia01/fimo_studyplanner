@@ -37,6 +37,9 @@ public class TasksFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public TasksFragment(String completeImportantTask, long l) {
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        >
+
+        <ImageButton
+            android:id="@+id/closecard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/baseline_close_24" />
+        <View
+            android:layout_width="97.5dp"
+            android:layout_height="wrap_content"
+            />
+
+        <FrameLayout
+            android:layout_width="138dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/tablayout"
+            android:backgroundTint="@color/tablayout"
+            android:id="@+id/tablayout">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/frontext"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:background="@drawable/tablayout"
+                    android:backgroundTint="@color/primary"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text=""
+                />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/front"
+                    android:layout_weight="1"
+                    android:text="Front"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="back"
+                    android:gravity="center"
+                />
+            </LinearLayout>
+        </FrameLayout>
+        <View
+            android:layout_width="97.5dp"
+            android:layout_height="wrap_content"
+            />
+        <ImageButton
+            android:id="@+id/savecard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginRight="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/baseline_done_24" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/pagetitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tablayout"
+        android:background="@drawable/rounded"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/subjecttitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tap to start typing..."
+            android:textSize="15sp"
+            android:textStyle="italic|normal" />
+    </LinearLayout>
+</LinearLayout>
