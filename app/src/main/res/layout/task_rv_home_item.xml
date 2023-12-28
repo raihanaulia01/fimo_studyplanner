@@ -8,12 +8,12 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="24dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="4dp"
+        app:cardElevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,30 +35,20 @@
 
             <TextView
                 android:id="@+id/taskTitleTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Task Title"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/cbTask"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/taskDescTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="Task Description"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toStartOf="@+id/editBtn"
+                android:layout_marginEnd="48dp"
+                android:text="Task Title"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintStart_toEndOf="@+id/cbTask"
-                app:layout_constraintTop_toBottomOf="@+id/taskTitleTV" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/taskDueTV"
@@ -72,7 +62,7 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cbTask"
-                app:layout_constraintTop_toBottomOf="@+id/taskDescTV" />
+                app:layout_constraintTop_toBottomOf="@+id/taskTitleTV" />
 
             <ImageButton
                 android:id="@+id/editBtn"

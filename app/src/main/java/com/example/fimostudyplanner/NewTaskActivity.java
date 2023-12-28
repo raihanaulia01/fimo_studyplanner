@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.fimostudyplanner.TaskData.DateConverter;
 import com.example.fimostudyplanner.TaskData.Task;
 import com.example.fimostudyplanner.TaskData.TaskManager;
 
@@ -51,7 +52,7 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         String priority = spinnerPriority.getItemAtPosition(spinnerPriority.getSelectedItemPosition()).toString();
 
         int taskPriority = findIndex(priority);
-        Task task = new Task(taskTitle, taskDesc, taskDue, taskPriority, false);
+        Task task = new Task(taskTitle, taskDesc, DateConverter.convertToEpoch(taskDue), taskPriority, false);
         Log.d("info", "task title: " + task.getTitle() + " priority: " + task.getPriority());
 
         TaskManager taskManager = new TaskManager(this);
