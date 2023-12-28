@@ -2,6 +2,7 @@ package com.example.fimostudyplanner;
 
 import android.os.Bundle;
 
+import androidx.annotation.LongDef;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.example.fimostudyplanner.TaskData.Task;
 import com.example.fimostudyplanner.TaskData.TaskManager;
 import com.example.fimostudyplanner.TasksFragments.HomeTaskAdapter;
 import com.example.fimostudyplanner.TasksFragments.TaskAdapter;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.List;
 
@@ -39,6 +41,9 @@ public class HomeFragment extends Fragment implements HomeTaskAdapter.OnCheckedC
     private HomeTaskAdapter taskAdapter;
     private TextView tvTaskCount;
     private TextView tvGreeting;
+    private TextView tvTaskProgress;
+    private LinearProgressIndicator taskProgressIndicator;
+    private TaskManager taskManager;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -74,10 +79,19 @@ public class HomeFragment extends Fragment implements HomeTaskAdapter.OnCheckedC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        taskManager = new TaskManager(getContext());
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = rootView.findViewById(R.id.rvTaskHome);
         tvTaskCount = rootView.findViewById(R.id.tvTaskCount);
+
+        tvTaskProgress = rootView.findViewById(R.id.tvTaskProgress);
+        taskProgressIndicator = rootView.findViewById(R.id.taskProgressIndicator);
+
+        taskProgressIndicator.setProgress(getTaskDoneProgress());
+        tvTaskProgress.setText(taskManager.getNumberOfTasksDone() + " out of "
+                + taskManager.getTasks().size() + " tasks done!");
 
         taskAdapter = new HomeTaskAdapter(getContext(), this);
         recyclerView.setAdapter(taskAdapter);
@@ -90,10 +104,22 @@ public class HomeFragment extends Fragment implements HomeTaskAdapter.OnCheckedC
         return rootView;
     }
 
+    private int getTaskDoneProgress() {
+        TaskManager taskManager = new TaskManager(getContext());
+        if (taskManager.getTasks().size() == 0) {
+            return 0;
+        }
+        double progressPercentage = ((double) (taskManager.getNumberOfTasksDone()) / taskManager.getTasks().size()) * 100;
+        return (int) Math.round(progressPercentage);
+    }
+
     @Override
     public void onItemCheckedChange(int taskId, boolean isChecked) {
-        TaskManager taskManager = new TaskManager(getContext());
         taskManager.setTaskIsCompleted(taskId, isChecked);
         Log.d("task checked", "HomeFragment onItemCheckedChanged: " + taskId + " | " + isChecked);
+
+        taskProgressIndicator.setProgress(getTaskDoneProgress(), true);
+        tvTaskProgress.setText(taskManager.getNumberOfTasksDone() + " out of "
+                + taskManager.getTasks().size() + " tasks done!");
     }
 }

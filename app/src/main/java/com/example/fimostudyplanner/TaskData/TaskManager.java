@@ -68,6 +68,19 @@ public class TaskManager {
         }
     }
 
+    public int getNumberOfTasksDone() {
+        List<Task> tasks = getTasks();
+        int tasksDone = 0;
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.isCompleted()) {
+                tasksDone++;
+            }
+        }
+        return tasksDone;
+    }
+
     public void updateTask(Task updatedTask) {
         List<Task> tasks = getTasks();
 
