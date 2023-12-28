@@ -106,10 +106,11 @@ public class HomeFragment extends Fragment implements HomeTaskAdapter.OnCheckedC
 
     private int getTaskDoneProgress() {
         TaskManager taskManager = new TaskManager(getContext());
-        if (taskManager.getTasks().size() == 0) {
+        int taskSize = taskManager.getTasks().size();
+        if (taskSize == 0) {
             return 0;
         }
-        double progressPercentage = ((double) (taskManager.getNumberOfTasksDone()) / taskManager.getTasks().size()) * 100;
+        double progressPercentage = ((double) (taskManager.getNumberOfTasksDone()) / taskSize) * 100;
         return (int) Math.round(progressPercentage);
     }
 
