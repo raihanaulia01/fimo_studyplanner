@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fimostudyplanner.EditTaskActivity;
 import com.example.fimostudyplanner.HomeFragment;
+import com.example.fimostudyplanner.TaskData.DateConverter;
 import com.example.fimostudyplanner.TaskData.Task;
 import com.example.fimostudyplanner.TaskData.TaskManager;
 import com.example.fimostudyplanner.R;
@@ -56,7 +57,7 @@ public class HomeTaskAdapter extends RecyclerView.Adapter<HomeTaskAdapter.HomeTa
     public void onBindViewHolder(@NonNull HomeTaskAdapter.HomeTaskViewHolder holder, int position) {
         Task task = taskList.get(position);
         holder.taskTitleTV.setText(task.getTitle());
-        holder.taskDueTV.setText(task.getDueDate());
+        holder.taskDueTV.setText(DateConverter.convertFromEpoch(task.getDueDate(), DateConverter.DEFAULT_FORMAT));
         holder.cbTask.setChecked(task.isCompleted());
 
         holder.editBtn.setOnClickListener(v -> {

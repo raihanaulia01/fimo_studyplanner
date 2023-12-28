@@ -64,7 +64,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         Task task = taskList.get(position);
         holder.taskTitleTV.setText(task.getTitle());
         holder.taskDescTV.setText(task.getDescription());
-        holder.taskDueTV.setText(task.getDueDate());
+        holder.taskDueTV.setText(task.getFormattedDueDate());
         holder.cbTask.setChecked(task.isCompleted());
 
         holder.editBtn.setOnClickListener(v -> {

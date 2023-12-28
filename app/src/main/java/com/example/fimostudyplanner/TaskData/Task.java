@@ -4,13 +4,13 @@ public class Task {
     private int id;
     private String title;
     private String description;
-    private String dueDate;
+    private long dueDate;
 
     // 0 = not urgent & unimportant, 1 = urgent & unimportant, 2 = not urgent & important, 3 = urgent & important
     private int priority;
     private boolean isCompleted;
 
-    public Task(String title, String description, String dueDate, int priority, boolean isCompleted) {
+    public Task(String title, String description, long dueDate, int priority, boolean isCompleted) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -42,11 +42,11 @@ public class Task {
         this.description = description;
     }
 
-    public String getDueDate() {
+    public long getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(long dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -64,5 +64,9 @@ public class Task {
 
     public void setCompleted(boolean completed) {
         isCompleted = completed;
+    }
+
+    public String getFormattedDueDate() {
+        return DateConverter.convertFromEpoch(dueDate, DateConverter.DEFAULT_FORMAT);
     }
 }
