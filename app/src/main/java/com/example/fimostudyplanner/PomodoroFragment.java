@@ -3,17 +3,20 @@ package com.example.fimostudyplanner;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +37,8 @@ public class PomodoroFragment extends Fragment {
     ProgressBar progressBar;
     Button btnTimerStart;
     Button btnTimerReset;
+    ImageButton btnPomodoroSettings;
+    EditText etPomodoroTime;
     private static final long DEFAULT_TIMER_TIME = 1800000;
     long timeInMillis = 1800000;
     CountDownTimer countDownTimer;
@@ -78,12 +83,17 @@ public class PomodoroFragment extends Fragment {
         progressBar = rootView.findViewById(R.id.circularProgressBar);
         btnTimerStart = rootView.findViewById(R.id.btnPomodoroStart);
         btnTimerReset = rootView.findViewById(R.id.btnPomodoroReset);
+        btnPomodoroSettings = rootView.findViewById(R.id.btnPomodoroSettings);
         tvRemainingTime = rootView.findViewById(R.id.tvRemainingTime);
         tvRemainingTime.setText(convertMillisToMinutesSeconds(timeInMillis));
 
         btnTimerStart.setOnClickListener(v -> startTimer());
 
         btnTimerReset.setOnClickListener(v -> resetTimer());
+
+        btnPomodoroSettings.setOnClickListener(v -> {
+            showSettingsDialog();
+        });
 
         return rootView;
     }
@@ -115,6 +125,27 @@ public class PomodoroFragment extends Fragment {
             progressBar.setProgress(0);
             tvRemainingTime.setText(convertMillisToMinutesSeconds(timeInMillis));
         }
+    }
+
+    private void showSettingsDialog() {
+        final View view = getLayoutInflater()
+                .inflate(R.layout.pomodoro_settings_dialog, null);
+        etPomodoroTime = view.findViewById(R.id.etPomodoroTime);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Set pomodoro time");
+        builder.setView(view);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            String input = etPomodoroTime.getText().toString();
+            if (!input.isEmpty()) {
+                timeInMillis = Long.parseLong(input) * 60000; // convert from minutes to milliseconds
+                tvRemainingTime.setText(convertMillisToMinutesSeconds(timeInMillis));
+                Toast.makeText(getContext(), "Timer set: " + convertMillisToMinutesSeconds(timeInMillis), Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public static String convertMillisToMinutesSeconds(long millis) {
