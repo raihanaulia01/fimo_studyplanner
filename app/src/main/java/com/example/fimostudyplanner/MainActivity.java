@@ -42,10 +42,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 bottomNavView.setSelectedItemId(R.id.tasksMenu);
                 startFragment(tasksFragment);
                 break;
-            case "flashcardsfragment":
-                bottomNavView.setSelectedItemId(R.id.flashcardsMenu);
-                startFragment(flashcardsFragment);
-                break;
             case "pomodorofragment":
                 bottomNavView.setSelectedItemId(R.id.pomodoroMenu);
                 startFragment(pomodoroFragment);
@@ -62,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
     HomeFragment homeFragment = new HomeFragment();
     TasksFragment tasksFragment = new TasksFragment();
-    FlashcardsFragment flashcardsFragment = new FlashcardsFragment();
     PomodoroFragment pomodoroFragment = new PomodoroFragment();
     ProfileFragment profileFragment = new ProfileFragment();
 
@@ -73,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return startFragment(homeFragment);
         } else if (item.getItemId() == R.id.tasksMenu) {
             return startFragment(tasksFragment);
-        } else if (item.getItemId() == R.id.flashcardsMenu) {
-            return startFragment(flashcardsFragment);
         } else if (item.getItemId() == R.id.pomodoroMenu) {
             return startFragment(pomodoroFragment);
         } else if (item.getItemId() == R.id.profileMenu) {
