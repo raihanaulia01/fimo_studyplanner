@@ -40,8 +40,8 @@ public class PomodoroFragment extends Fragment {
     Button btnTimerReset;
     ImageButton btnPomodoroSettings;
     EditText etPomodoroTime;
-    private static final long DEFAULT_TIMER_TIME = 1800000;
     long timeInMillis = 1800000;
+    long pomodoroTimeInput;
     CountDownTimer countDownTimer;
     ObjectAnimator animation;
 
@@ -93,6 +93,7 @@ public class PomodoroFragment extends Fragment {
         btnTimerReset.setOnClickListener(v -> resetTimer());
 
         btnPomodoroSettings.setOnClickListener(v -> {
+            resetTimer();
             showSettingsDialog();
         });
 
@@ -121,7 +122,7 @@ public class PomodoroFragment extends Fragment {
     private void resetTimer() {
         if (countDownTimer != null) {
             countDownTimer.cancel();
-            timeInMillis = DEFAULT_TIMER_TIME;
+            timeInMillis = pomodoroTimeInput;
             animation.cancel();
             progressBar.setProgress(0);
             tvRemainingTime.setText(convertMillisToMinutesSeconds(timeInMillis));
@@ -141,7 +142,8 @@ public class PomodoroFragment extends Fragment {
             String input = etPomodoroTime.getText().toString();
             if (!input.isEmpty()) {
                 try {
-                    timeInMillis = Long.parseLong(input) * 60000; // convert from minutes to milliseconds
+                    pomodoroTimeInput = Long.parseLong(input) * 60000; // convert from minutes to milliseconds
+                    timeInMillis = pomodoroTimeInput;
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "Invalid input", Toast.LENGTH_SHORT).show();
                     Log.e("error parsing", "showSettingsDialog: NumberFormatException, invalid input");
