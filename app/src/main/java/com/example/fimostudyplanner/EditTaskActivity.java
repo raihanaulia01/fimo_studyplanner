@@ -50,7 +50,7 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editSpPriority.setAdapter(ad);
 
-        Task task = taskManager.getTasks().get(editTaskId);
+        Task task = taskManager.getTaskById(editTaskId);
         editTitleET.setText(task.getTitle());
         editDescET.setText(task.getDescription());
         editDueET.setText(DateConverter.convertFromEpochtoDDMMYY(task.getDueDate()));

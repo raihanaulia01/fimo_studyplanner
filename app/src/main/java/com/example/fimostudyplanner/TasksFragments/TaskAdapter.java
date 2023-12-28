@@ -68,6 +68,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.cbTask.setChecked(task.isCompleted());
 
         holder.editBtn.setOnClickListener(v -> {
+            Log.d("TaskAdapter", "onBindViewHolder: Edit Task " + task.getId() + " | " +  taskList.size());
             Intent intent = new Intent(context, EditTaskActivity.class);
             intent.putExtra("TaskId", task.getId());
             context.startActivity(intent);
