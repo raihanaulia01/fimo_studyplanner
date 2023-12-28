@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btnPomdoroSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
@@ -61,10 +61,14 @@
 
             <ProgressBar
                 android:id="@+id/circularProgressBar"
-                android:layout_width="0dp"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="300dp"
                 android:layout_height="300dp"
-                android:max="100"
-                android:progress="75"
+                android:layout_marginTop="16dp"
+                android:indeterminate="false"
+                android:max="500"
+                android:progress="0"
+                android:progressDrawable="@drawable/circular_progress"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -73,7 +77,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
                 android:orientation="horizontal"
@@ -89,8 +93,8 @@
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/btnGray"
-                    android:textColor="@color/black"
-                    android:text="Reset" />
+                    android:text="Reset"
+                    android:textColor="@color/black" />
 
                 <Button
                     android:id="@+id/btnPomodoroStart"
@@ -102,7 +106,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tvRemainingTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"
