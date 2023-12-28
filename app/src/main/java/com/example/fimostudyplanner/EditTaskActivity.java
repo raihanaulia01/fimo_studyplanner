@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.fimostudyplanner.TaskData.DateConverter;
 import com.example.fimostudyplanner.TaskData.Task;
 import com.example.fimostudyplanner.TaskData.TaskManager;
 
@@ -48,6 +49,12 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
                 android.R.layout.simple_spinner_item, NewTaskActivity.priorities);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editSpPriority.setAdapter(ad);
+
+        Task task = taskManager.getTaskById(editTaskId);
+        editTitleET.setText(task.getTitle());
+        editDescET.setText(task.getDescription());
+        editDueET.setText(DateConverter.convertFromEpochtoDDMMYY(task.getDueDate()));
+        editSpPriority.setSelection(task.getPriority());
     }
 
     public void btnEditTaskOnClick(View v) {
@@ -58,7 +65,8 @@ public class EditTaskActivity extends AppCompatActivity implements AdapterView.O
                 .getSelectedItemPosition()).toString();
 
         int taskPriority = findIndex(priority);
-        Task newTask = new Task(taskTitle, taskDesc, taskDue, taskPriority, false);
+        Task newTask = new Task(taskTitle, taskDesc, DateConverter.convertToEpoch(taskDue),
+                taskPriority, false);
         if (editTaskId != -1){
             newTask.setId(editTaskId);
             taskManager.updateTask(newTask);

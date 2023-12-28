@@ -75,7 +75,7 @@ public class AllTasksFragment extends Fragment implements TaskAdapter.OnCheckedC
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_all_tasks, container, false);
         fabAddTask = rootView.findViewById(R.id.fabAllTasks);
-        taskAdapter = new TaskAdapter(getContext(), this);
+        taskAdapter = new TaskAdapter(getContext(), this, R.layout.task_rv_item);
         recyclerView = rootView.findViewById(R.id.rvAllTasks);
         recyclerView.setAdapter(taskAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -11,6 +11,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView bottomNavView;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Intent i = getIntent();
         String selectedFragment;
         try {
-            selectedFragment = i.getStringExtra("GoTo").toLowerCase();
+            selectedFragment = Objects.requireNonNull(i.getStringExtra("GoTo")).toLowerCase();
         } catch (NullPointerException e) {
             Log.e("NullPointerException",
                     "selectedFragment is null. proceeding to homeFragment.");

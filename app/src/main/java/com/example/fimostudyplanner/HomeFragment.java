@@ -2,18 +2,31 @@ package com.example.fimostudyplanner;
 
 import android.os.Bundle;
 
+import androidx.annotation.LongDef;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.fimostudyplanner.TaskData.Task;
+import com.example.fimostudyplanner.TaskData.TaskManager;
+import com.example.fimostudyplanner.TasksFragments.HomeTaskAdapter;
+import com.example.fimostudyplanner.TasksFragments.TaskAdapter;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeTaskAdapter.OnCheckedChangeListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +36,14 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView recyclerView;
+    private HomeTaskAdapter taskAdapter;
+    private TextView tvTaskCount;
+    private TextView tvGreeting;
+    private TextView tvTaskProgress;
+    private LinearProgressIndicator taskProgressIndicator;
+    private TaskManager taskManager;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -58,7 +79,48 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        taskManager = new TaskManager(getContext());
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        recyclerView = rootView.findViewById(R.id.rvTaskHome);
+        tvTaskCount = rootView.findViewById(R.id.tvTaskCount);
+
+        tvTaskProgress = rootView.findViewById(R.id.tvTaskProgress);
+        taskProgressIndicator = rootView.findViewById(R.id.taskProgressIndicator);
+
+        taskProgressIndicator.setProgress(getTaskDoneProgress());
+        tvTaskProgress.setText(taskManager.getNumberOfTasksDone() + " out of "
+                + taskManager.getTasks().size() + " tasks done!");
+
+        taskAdapter = new HomeTaskAdapter(getContext(), this);
+        recyclerView.setAdapter(taskAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        TaskManager taskManager = new TaskManager(getContext());
+        List<Task> taskList = taskManager.getTasks();
+        tvTaskCount.setText(taskList.size() + " tasks today.");
+
+        return rootView;
+    }
+
+    private int getTaskDoneProgress() {
+        TaskManager taskManager = new TaskManager(getContext());
+        int taskSize = taskManager.getTasks().size();
+        if (taskSize == 0) {
+            return 0;
+        }
+        double progressPercentage = ((double) (taskManager.getNumberOfTasksDone()) / taskSize) * 100;
+        return (int) Math.round(progressPercentage);
+    }
+
+    @Override
+    public void onItemCheckedChange(int taskId, boolean isChecked) {
+        taskManager.setTaskIsCompleted(taskId, isChecked);
+        Log.d("task checked", "HomeFragment onItemCheckedChanged: " + taskId + " | " + isChecked);
+
+        taskProgressIndicator.setProgress(getTaskDoneProgress(), true);
+        tvTaskProgress.setText(taskManager.getNumberOfTasksDone() + " out of "
+                + taskManager.getTasks().size() + " tasks done!");
     }
 }

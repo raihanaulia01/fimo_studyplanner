@@ -62,7 +62,7 @@ public class EisenhowerAdapter extends RecyclerView.Adapter<EisenhowerAdapter.Ei
     public void onBindViewHolder(@NonNull EisenhowerAdapter.EisenhowerViewHolder holder, int position) {
         Task task = taskList.get(position);
         holder.tvTitleEH.setText(task.getTitle());
-        holder.tvDueEH.setText(task.getDueDate());
+        holder.tvDueEH.setText(task.getFormattedDueDate());
         holder.cbTaskEH.setChecked(task.isCompleted());
     }
 
