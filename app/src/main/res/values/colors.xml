@@ -11,4 +11,5 @@
     <color name="background">#EDEFF3</color>
 
     <color name="navbarIcon">#BE000000</color>
+    <color name="btnGray">#E0E0E0</color>
 </resources>
