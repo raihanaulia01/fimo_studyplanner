@@ -86,10 +86,5 @@ public class NotificationHelper {
                 notificationManager.createNotificationChannel(channel);
             }
         }// Di NotificationHelper atau NotificationManager
-    public List<NotificationItem> getNotifications() {
-        // Mengambil informasi notifikasi dari tempat penyimpanan atau sumber data lainnya
-        // Mengembalikan daftar NotificationItem
-        return null;
-    }
 }
 

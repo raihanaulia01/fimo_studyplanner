@@ -3,6 +3,7 @@ package com.example.fimostudyplanner.notificationsprofile;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -65,7 +66,7 @@ public class ProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         // Mendapatkan referensi ke tombol Settings
-        ImageButton settingsButton = rootView.findViewById(R.id.buttonS);
+        AppCompatButton settingsButton = rootView.findViewById(R.id.buttonS);
 
         // Menambahkan onClickListener ke tombol Settings
         settingsButton.setOnClickListener(new View.OnClickListener() {

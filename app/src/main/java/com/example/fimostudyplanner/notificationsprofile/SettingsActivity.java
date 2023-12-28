@@ -44,7 +44,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void handleNotification(boolean enableNotification) {
         // Mendapatkan instance NotificationManager dari aplikasi
-        @SuppressLint("ServiceCast") NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        @SuppressLint("ServiceCast")
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         // Ambil data dari antarmuka pengguna atau sumber input lainnya
 
@@ -62,10 +63,10 @@ public class SettingsActivity extends AppCompatActivity {
         notificationManager.scheduleTaskNotification(task, enableNotification);
 
         // Jika notifikasi diaktifkan, buka NotificationActivity
-        if (enableNotification) {
-            Intent notificationIntent = new Intent(this, NotificationActivity.class);
-            startActivity(notificationIntent);
-        }
+//        if (enableNotification) {
+//            Intent notificationIntent = new Intent(this, NotificationActivity.class);
+//            startActivity(notificationIntent);
+//        }
     }
 
 }
