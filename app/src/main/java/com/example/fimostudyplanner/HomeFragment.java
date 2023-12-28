@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.fimostudyplanner.TaskData.Task;
 import com.example.fimostudyplanner.TaskData.TaskManager;
+import com.example.fimostudyplanner.TasksFragments.HomeTaskAdapter;
 import com.example.fimostudyplanner.TasksFragments.TaskAdapter;
 
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements TaskAdapter.OnCheckedChangeListener {
+public class HomeFragment extends Fragment implements HomeTaskAdapter.OnCheckedChangeListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +36,7 @@ public class HomeFragment extends Fragment implements TaskAdapter.OnCheckedChang
     private String mParam2;
 
     private RecyclerView recyclerView;
-    private TaskAdapter taskAdapter;
+    private HomeTaskAdapter taskAdapter;
     private TextView tvTaskCount;
     private TextView tvGreeting;
 
@@ -78,10 +79,9 @@ public class HomeFragment extends Fragment implements TaskAdapter.OnCheckedChang
         recyclerView = rootView.findViewById(R.id.rvTaskHome);
         tvTaskCount = rootView.findViewById(R.id.tvTaskCount);
 
-        taskAdapter = new TaskAdapter(getContext(), this, R.layout.task_rv_home_item);
+        taskAdapter = new HomeTaskAdapter(getContext(), this);
         recyclerView.setAdapter(taskAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(
-                getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         TaskManager taskManager = new TaskManager(getContext());
         List<Task> taskList = taskManager.getTasks();
@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment implements TaskAdapter.OnCheckedChang
     }
 
     @Override
-    public void onItemCheckedChanged(int taskId, boolean isChecked) {
+    public void onItemCheckedChange(int taskId, boolean isChecked) {
         TaskManager taskManager = new TaskManager(getContext());
         taskManager.setTaskIsCompleted(taskId, isChecked);
         Log.d("task checked", "HomeFragment onItemCheckedChanged: " + taskId + " | " + isChecked);
