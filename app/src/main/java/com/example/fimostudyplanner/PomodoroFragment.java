@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,7 +140,12 @@ public class PomodoroFragment extends Fragment {
         builder.setPositiveButton("OK", (dialog, which) -> {
             String input = etPomodoroTime.getText().toString();
             if (!input.isEmpty()) {
-                timeInMillis = Long.parseLong(input) * 60000; // convert from minutes to milliseconds
+                try {
+                    timeInMillis = Long.parseLong(input) * 60000; // convert from minutes to milliseconds
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getContext(), "Invalid input", Toast.LENGTH_SHORT).show();
+                    Log.e("error parsing", "showSettingsDialog: NumberFormatException, invalid input");
+                }
                 tvRemainingTime.setText(convertMillisToMinutesSeconds(timeInMillis));
                 Toast.makeText(getContext(), "Timer set: " + convertMillisToMinutesSeconds(timeInMillis), Toast.LENGTH_SHORT).show();
             }
