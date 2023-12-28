@@ -1,4 +1,4 @@
-package com.example.fimostudyplanner;
+package com.example.fimostudyplanner.notificationsprofile;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -6,6 +6,10 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+
+import com.example.fimostudyplanner.R;
+
+import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class NotificationHelper {
@@ -81,6 +85,11 @@ public class NotificationHelper {
                 NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
                 notificationManager.createNotificationChannel(channel);
             }
-        }
+        }// Di NotificationHelper atau NotificationManager
+    public List<NotificationItem> getNotifications() {
+        // Mengambil informasi notifikasi dari tempat penyimpanan atau sumber data lainnya
+        // Mengembalikan daftar NotificationItem
+        return null;
+    }
 }
 

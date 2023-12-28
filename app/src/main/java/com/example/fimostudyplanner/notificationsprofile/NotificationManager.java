@@ -1,20 +1,20 @@
-package com.example.fimostudyplanner;
+package com.example.fimostudyplanner.notificationsprofile;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.fimostudyplanner.R;
 import com.example.fimostudyplanner.TaskData.Task;
 import com.example.fimostudyplanner.TaskData.TaskManager;
+import com.example.fimostudyplanner.notificationsprofile.NotificationHelper;
 
 import java.util.List;
 import java.util.Timer;
@@ -45,7 +45,7 @@ public class NotificationManager extends Activity {
             public void run() {
                 sendTaskNotification(task, enableNotification);
             }
-        }, Long.parseLong(task.getDueDate()));
+        }, Long.parseLong(String.valueOf(task.getDueDate())));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

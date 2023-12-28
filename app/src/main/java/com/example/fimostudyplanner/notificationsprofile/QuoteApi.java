@@ -1,4 +1,4 @@
-package com.example.fimostudyplanner;
+package com.example.fimostudyplanner.notificationsprofile;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
